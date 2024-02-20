@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+    padding-top: 6px;
+    flex-direction: column;
+    display: flex;
+    background-color: rgb(220, 223, 223);
+}
+
+#btn {
+    background-color: rgb(84, 84, 240);
+    padding: 4px;
+    align-items: center;
+    color: white;
+
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
