@@ -1,98 +1,178 @@
 
+let champElement = document.createElement("div");
 
-function getComputerChoice () {
-    let arr = ["Rock", "Papers", "Scissors"];
-    const random = Math.floor(Math.random() * arr.length);
-    return arr[random];
-}
+let playerPoints = 0;
+let computerPoints = 0; 
 
-const btn = document.querySelector("#btn");
-const rock = document.querySelector("#rock");
-const papers = document.querySelector("#papers");
-const scissors = document.querySelector("#scissors");
+let btn = document.querySelector("#btn");
+let rock = document.querySelector("#rock");
+let papers = document.querySelector("#papers");
+let scissors = document.querySelector("#scissors");
+
+let resultElement = document.querySelector(".result");
+let winnerElement = document.createElement("div");
+winnerElement.textContent = "";
+champElement.textContent = "";
+
+winnerElement.style.display = "flex";
+winnerElement.style.justifyContent = "center";
+winnerElement.style.margin = "20px";
+winnerElement.style.fontSize = "30px";
+
+champElement.style.display = "flex";
+champElement.style.justifyContent = "center";
+champElement.style.margin = "20px";
+champElement.style.fontSize = "30px";
+champElement.style.color = "green";
+
+resultElement.appendChild(winnerElement);
+resultElement.appendChild(champElement);
+
+let body = document.querySelector("body");
+body.appendChild(winnerElement);
+body.appendChild(champElement);
 
 // Start the game logic when the header button is clicked
+
 btn.addEventListener("click", () => {
     alert("The game just started!");
+    
+    winnerElement.textContent = "";
+    champElement.textContent = "";
+    playerPoints = 0;
+    computerPoints = 0;
+
     startGame();
-})
+});
 
-function playerOption() {
+
+function startGame() {                              
     let playerSelection = "";
-
-    rock.addEventListener("click", () => {
-        playerSelection = "rock";
-    })
-    papers.addEventListener("click", () => {
-        playerSelection = "papers";
-    })
-    scissors.addEventListener("click", () => {
-        playerSelection = "scissors";
-    })
-
-    if (playerSelection != "") {
-        return playerSelection;
-    }
-}
-
-function playerRound(playerSelection, computerSelection) {
     let winner = "";
-    if ((playerSelection === "rock" && computerSelection === "scissors") || 
-        (playerSelection === "paper" && computerSelection === "rock")    ||
-        (playerSelection === "scissors" && computerSelection === "paper")) {
-            winner =  playerSelection;
-    } else if (playerSelection === computerSelection) {
-        winner = "It's a tie!"
-    } else {
-        winner = computerSelection;
-    }
-    return winner;
-}
+        
+    rock.addEventListener("click", () => {
+      
+        playerSelection = "rock";
 
-
-function startGame() {
-    let playerPoints = 0;
-    let computerPoints = 0;
-    let counter = 0; //breakpoint to end the loop after a certain number
-    let body = document.querySelector("body");
-
-    // LOOP RUNS FOREVER NEEDS A FIX
-
-    // the rounds only stop when one of the players get 5 points
-    while (playerPoints != 5 || computerPoints != 5 || counter > 2) {
-        let winnerElement = document.createElement("div");
-        let playerSelection = "";
-        if (playerSelection != "") {
-            alert("Choose an option!")
-        }
-        playerSelection = playerOption();
         let computerSelection = getComputerChoice();
+
+        winner = playerRound(playerSelection, computerSelection);
+        console.log(winner);
+        if (winner === playerSelection) {
+            playerPoints++;
+        } else if (winner === computerSelection) {
+            computerPoints++;
+        }
         
-        let winner = playerRound(playerSelection, computerSelection);
+        getResult(winner, playerSelection, playerPoints, computerPoints);    
+    });
         
-        // alter the dom tree and introduce an element calling the winner..
-        // sum the round points to each counter
+    papers.addEventListener("click", () => {
+
+
+        playerSelection = "papers";
+        
+        let computerSelection = getComputerChoice();
+
+        winner = playerRound(playerSelection, computerSelection);
+        
+        if (winner === playerSelection) {
+            playerPoints++;
+        } else if (winner === computerSelection) {
+            computerPoints++;
+        }
+        
+        getResult(winner, playerSelection, playerPoints, computerPoints);
+    });
+        
+    scissors.addEventListener("click", () => {
+
+        playerSelection = "scissors";
+        
+        let computerSelection = getComputerChoice();
+
+        winner = playerRound(playerSelection, computerSelection);
+
+        if (winner === playerSelection) {
+            playerPoints++;
+        } else if (winner === computerSelection) {
+            computerPoints++;
+        }
+
+        getResult(winner, playerSelection, playerPoints, computerPoints);
+
+    });
+
+    function getComputerChoice () {
+        let arr = ["rock", "papers", "scissors"];
+        const random = Math.floor(Math.random() * arr.length);
+        return arr[random];
+    }
+    
+    function playerRound(playerSelection, computerSelection) {
+        let winner = "";
+    
+        
+        if (playerSelection == "rock" && computerSelection == "scissors") {
+            winner = playerSelection;
+        }
+
+        if (playerSelection == "papers" && computerSelection == "rock") {
+            winner = playerSelection;
+        }
+
+        if (playerSelection == "scissors" && computerSelection == "papers") {
+            winner = playerSelection;
+        }
+
+        if (computerSelection == "rock" && playerSelection == "scissors") {
+            winner = computerSelection;
+        }
+
+        if (computerSelection == "papers" && playerSelection == "rock") {
+            winner = computerSelection;
+        }
+
+        if (computerSelection == "scissors" && playerSelection == "papers") {
+            winner = computerSelection;
+        }
+
+        if (computerSelection == playerSelection) {
+            return "tie";
+        }
+
+        return winner;
+    };
+    
+    function getResult(winner, playerSelection, playerPoints, computerPoints) {
+        let computerSelection = getComputerChoice();
+    
         if (playerSelection != "") {
             if (winner === playerSelection) {
                 winnerElement.textContent = `You win! ${playerSelection} beats ${computerSelection}!`;
-                playerPoints++;
             } else if (winner === computerSelection) {
+                console.log("loss");
                 winnerElement.textContent = `You lose! ${computerSelection} beats ${playerSelection}!`;
-                computerPoints++;
             } else {
+                console.log("tie");
                 winnerElement.textContent = "It's a tie";
             }
-
-            body.appendChild(winnerElement);
+    
         }
-    }
-    counter++;
-    // Alter the dom tree again to announce the player who got most points
-    if (playerPoints === 5) {
-        alert("you are the champion");
-    } else if (computerPoints === 5) {
-        alert("computer always wins")
-    }
 
+        if (playerPoints == 5) {
+            champElement.textContent = `You are the champion!`;
+            playerPoints = 0;
+            computerPoints = 0; 
+            champElement.style.color = "green";
+        } else if (computerPoints == 5) {
+            champElement.style.color = "red";
+            champElement.textContent = `Computer is the champion!`;
+            playerPoints = 0;
+            computerPoints = 0;
+        }
+    };
 
-}
+        
+};
+
