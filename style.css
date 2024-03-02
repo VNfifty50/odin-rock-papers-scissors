@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+    padding-top: 6px;
+    flex-direction: column;
+    display: flex;
+    background-color: rgb(161, 214, 214);
+    color: rgb(0, 0, 0);
+}
+
+#btn {
+    background-color: rgb(97, 97, 241);
+    padding: 4px;
+    align-items: center;
+    color: white;
+
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.first, .sec, .third {
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+}
+
+#rock, #papers, #scissors {
+    background-color: rgb(97, 97, 241);
+    color: white;
+}
+
+

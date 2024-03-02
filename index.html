@@ -4,8 +4,34 @@
         <meta charset="utf-8">
         <title>Rock papers and scissors</title>
         <script src="script.js" defer></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <button id="btn">Click</button>
+        <div class="header">
+            <h1>Rock, Papers and Scissors Game</h1>
+            <button id="btn">Start</button>
+        </div>
+        <div class="btn-container">
+            <div class="first">
+                <img src="images/rock.jpg" width="120" height="120">
+                <button id="rock">Rock</button>
+            </div>
+            <div class="sec">
+                <img src="images/paper.jpeg" width="120" height="120">
+                <button id="papers">Papers</button>
+            </div>
+            <div class="third">
+                <img src="images/scissors.jpg" width="120" height="120">
+                <button id="scissors">Scissors</button>
+            </div>
+            <div class="result"></div>
+        </div>
     </body>
 </html>
+
+
+<!-- COMMIT-->
+<!-- ADD AN ENVENT LISTENER WHEN BUTTONS ARE CLICKED THEY TURN RED-->
+<!-- ADD ANOTHER EVENT LISTENER WHEN RIGHT AFTER THE GAME BEGINS PLAYER MUST CHOOSE ROCK PAPERS OR SCISSORS
+     AFTER THEY DO CREATE ANOTHER ELEMENT IN THE DOM TREE TO ANNOUNCE THE WINNER-->
+<!-- AFTER A PLAYER WINS ANOTHER EVENT MUST BE TRIGGERED WHICH CREATES ANOTHER ELEMENT THAT CONGRATS THE WINNER AND OPTIONALLY A TROPHY MIGHT BE SHOWED ALONGSIDE THE TEXT-->
